@@ -104,7 +104,7 @@ async function main(){
             console.log(order.currentPrice.toNumber()/1e18)
             console.log(order)
         }
-        let tx = await fullOrder(order, AccountAddress)
+        //let tx = await fullOrder(order, AccountAddress)
         console.log(tx,"====")
         console.log("end ...")
     }
