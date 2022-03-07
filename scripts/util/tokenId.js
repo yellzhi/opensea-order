@@ -15,8 +15,25 @@ function getIds(x, y , size){
 
 }
 
-//console.log(getId(-203, -30))
+function getNTFToken(contractAddress, token){
+    return {
+        ContractAddress : contractAddress,
+        TokenId :token,
+    }
+}
+function getSandBoxByPoint(x, y, size= 1){
+    let contractAddress = '0x5CC5B05a8A13E3fBDB0BB9FcCd98D38e50F90c38'
+    let token = getId(x, y)
+    return {
+        ContractAddress : contractAddress,
+        TokenId :token,
+    }
+}
+
+//console.log(getId(36, -144))
 
 module.exports={
-    getId : getId
+    getId,
+    getNTFToken,
+    getSandBoxByPoint,
 }

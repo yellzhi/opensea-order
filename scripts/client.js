@@ -2,7 +2,7 @@ const Order = require('./util/order').Order
 const stop = require('./util/opensea').stop
 const Config = require('../config')
 const wallet = require('./util/opensea').Wallet
-const GetId = require('./util/tokenId')
+const Token = require('./util/tokenId')
 const {start} = require("./util/opensea");
 
 let account = undefined
@@ -51,9 +51,14 @@ process.on('SIGILL', function (){
 })
 
 let main = async ()=>{
+    if (!Order.initSeaport(Config.NET.Main)){
+        console.error('opensea sdk init fail')
+        return
+    }
     try {
         account =  await getAccount()
-        await mainLoop(Config.NFT.ContractAddress, Config.NFT.TokenId, account)
+        let nft = Token.getSandBoxByPoint(36, -144)
+        await mainLoop(nft.ContractAddress, nft.TokenId, account)
     }catch (e){
         console.error(e.message)
     }

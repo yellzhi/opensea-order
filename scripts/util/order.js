@@ -1,4 +1,13 @@
-const Seaport = require("./opensea").Seaport;
+const {encodeAtomicizedSell} = require("opensea-js");
+const funSeaport = require("./opensea").funSeaport;
+let Seaport = undefined
+let initSeaport = (net )=>{
+    Seaport = funSeaport(net)
+    if (!Seaport){
+        return false
+    }
+    return true
+}
 
 let getOrder = async (contract_address, token_id, side)=>{
     let res;
@@ -17,7 +26,7 @@ let getOrder = async (contract_address, token_id, side)=>{
         }else {
             console.warn(contract_address, " Id:", token_id, ' can not get ...')
         }
-        //console.log(r)
+        console.log(r)
     }catch (e){
         throw e
     }
@@ -40,4 +49,4 @@ let fullOrder = async (order, accountAddress)=>{
 
 //get(ContractAddress, 0, 1)
 
-exports.Order = {getOrder, fullOrder}
+exports.Order = {getOrder, fullOrder, initSeaport}

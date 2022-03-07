@@ -7,20 +7,21 @@ const Config = require('../../config')
 
 let netWork = Network.Rinkeby
 let API_KEY = ''
-let RPC_URL= ''
-let ChainId = 0
-switch (Config.NetWork) {
-    case 0:
-        netWork = Network.Rinkeby;
-        RPC_URL = Config.RPC_URL_rinkeby
-        ChainId = 4
-        break;
-    case 1:
-        netWork = Network.Main;
-        API_KEY = Config.API_KEY;
-        RPC_URL = Config.RPC_URL_main
-        ChainId = 1
-        break
+let RPC_URL= Config.RPC_URL_rinkeby
+let ChainId = 4
+let funcNet = (net )=> {
+    switch (net) {
+        case 0:
+            break;
+        case 1:
+            netWork = Network.Main;
+            API_KEY = Config.API_KEY;
+            RPC_URL = Config.RPC_URL_main
+            ChainId = 1
+            break
+        default:
+            break
+    }
 }
 
 const keyWalletProvider = new KeyWalletSubprovider(Config.PRIVATE_KEYS[0], ChainId)
@@ -31,20 +32,23 @@ providerEngine.addProvider(infuraRpc)
 
 
 
-let Seaport = new Opensea.OpenSeaPort(
-    providerEngine,
-    {
-        networkName:netWork ,
-        apiKey:API_KEY
-    },
+let funSeaport = (net)=>{
+    funcNet(net)
+    return new Opensea.OpenSeaPort(
+        providerEngine,
+        {
+            networkName:netWork ,
+            apiKey:API_KEY
+        },
 
-    (arg)=>console.log(arg)
-)
+        (arg)=>console.log(arg)
+    )
+}
 
 let isStart = false
 module.exports = {
     Wallet : keyWalletProvider,
-    Seaport : Seaport,
+    funSeaport : funSeaport,
     stop : function () {
         if (!isStart)
             return
