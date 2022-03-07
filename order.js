@@ -42,4 +42,8 @@ let fullOrder = async (order, accountAddress)=>{
 
 //get(ContractAddress, 0, 1)
 
-exports.Order = {getOrder, fullOrder}
+let getBalance = async (Account)=>{
+    return  await Opensea.web3.eth.getBalance(Account)
+}
+
+exports.Order = {getOrder, fullOrder, getBalance}

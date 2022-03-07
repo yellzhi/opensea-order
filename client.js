@@ -19,5 +19,14 @@ const main = async ()=>{
 
 }
 
-main()
+const test = async ()=>{
+    try {
+        let b = Order.getBalance(AccountAddress)
+        console.log(b)
+    }catch (e){
+        console.log(e)
+    }
+}
+test()
+//main()
 stop()

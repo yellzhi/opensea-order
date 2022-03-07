@@ -6,15 +6,12 @@ const Web3ProviderEngine = require('web3-provider-engine')
 const KeyWalletSubprovider = require('@0x/subproviders').PrivateKeyWalletSubprovider
 const keyWalletProvider = new KeyWalletSubprovider(TestKey, 4)
 
-const infuraRpc = new RPCSubprovider({rpcUrl:RpcURL})
 
+const infuraRpc = new RPCSubprovider({rpcUrl:RpcURL})
 const providerEngine = new Web3ProviderEngine()
 providerEngine.addProvider(keyWalletProvider)
 providerEngine.addProvider(infuraRpc)
 providerEngine.start()
-
-const Opensea = require('opensea-js')
-const Network = Opensea.Network
 
 let Seaport = new Opensea.OpenSeaPort(
     providerEngine,
